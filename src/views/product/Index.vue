@@ -364,19 +364,7 @@ export default {
 
       this.prices = prices.replace(/[\s+]|[$]/g,'').split('-')
 
-      this.axios.post('http://localhost:8876/api/products', {
-        'categories': this.categories,
-        'colors': this.colors,
-        'tags': this.tags,
-        'prices': this.prices,
-      })
-          .then( res => {
-            this.products = res.data.data;
-            console.log(res);
-          })
-          .finally( v => {
-            $(document).trigger('changed')
-          })
+      this.getProducts()
     },
 
     addTag(id) {
@@ -400,7 +388,10 @@ export default {
 
     getProducts() {
       this.axios.post('http://localhost:8876/api/products', {
-
+        'categories': this.categories,
+        'colors': this.colors,
+        'tags': this.tags,
+        'prices': this.prices,
       })
         .then( res => {
             this.products = res.data.data;
