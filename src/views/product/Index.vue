@@ -447,7 +447,7 @@ export default {
         .then( res => {
             this.products = res.data.data
             this.pagination = res.data.meta
-            console.log(res);
+            /*console.log(res);*/
         })
           .finally( v => {
             $(document).trigger('changed')
@@ -457,7 +457,7 @@ export default {
       this.axios.get(`http://localhost:8876/api/products/${id}`)
           .then( res => {
             this.popupProduct = res.data.data
-            console.log(res);
+            /*console.log(res);*/
           })
           .finally( v => {
             $(document).trigger('changed')

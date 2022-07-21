@@ -1326,7 +1326,7 @@ export default {
       this.axios.get(`http://localhost:8876/api/products/${this.$route.params.id}`)
           .then( res => {
             this.popupProduct = res.data.data
-            console.log(res);
+            /*console.log(res)*/;
           })
           .finally( v => {
             $(document).trigger('changed')

@@ -88,6 +88,12 @@
               </div>
             </div>
           </div>
+          <div class="row w-25">
+            <input type="text" v-model="name" placeholder="name">
+            <input type="text" v-model="email" placeholder="email">
+            <input type="text" v-model="address" placeholder="address">
+            <input @click.prevent="storeOrder" type="submit" class="btn btn-primary" value="Оформить">
+          </div>
           <div class="row pt-120">
             <div class="col-xl-6 col-lg-7 wow fadeInUp animated">
               <div class="cart-total-box">
@@ -187,11 +193,40 @@ export default {
 
   data() {
     return {
-      products: []
+      products: [],
+      name: '',
+      email: '',
+      address: '',
+    }
+  },
+
+  computed: {
+    totalPrice() {
+      let total = 0
+      this.products.forEach( product => {
+        total += product.price * product.qty
+      })
+      return total
     }
   },
 
   methods: {
+    storeOrder() {
+      this.axios.post('http://localhost:8876/api/orders', {
+        'products': this.products,
+        'name': this.name,
+        'address': this.address,
+        'email': this.email,
+        'total_price': this.totalPrice,
+      })
+          .then( res => {
+            console.log(res);
+          })
+          .finally( v => {
+            $(document).trigger('changed')
+          })
+    },
+
     getCartProducts() {
       this.products = JSON.parse(localStorage.getItem('cart'))
       console.log(this.products)
