@@ -128,7 +128,7 @@
                             <label for="option_3"><span></span>Local Pickup</label> </li>
                         </ul>
                         <div class="inner-text">
-                          <p>Shipping options will be updated during checkout</p>
+                          <p>Shipping options will be updat during checkout</p>
                         </div>
                         <h4>Calculate Shipping</h4>
                       </td>

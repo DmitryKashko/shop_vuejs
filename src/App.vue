@@ -63,7 +63,15 @@
                           <option>ENGLISH </option>
                           <option value="1">GERMAN</option>
                           <option value="4">FRENCH</option>
-                        </select> </div> <a href="login.html"> Sign In / Register </a>
+                        </select> </div>
+                        <router-link v-if="accessToken" to="/user/account"><span>Account &nbsp&nbsp</span></router-link>
+                        <router-link v-if="!accessToken" to="/user/login"><span>Sign In</span></router-link>
+                        <span><b>&nbsp / &nbsp</b></span>
+                        <router-link v-if="!accessToken" to="/user/registration"><span>Register</span></router-link>
+                        <span><b>&nbsp &nbsp</b></span>
+                        <router-link v-if="accessToken" to="/user/personal"><span>personal</span></router-link>
+                        <span><b>&nbsp &nbsp</b></span>
+                        <a href="#" v-if="accessToken" @click.prevent="logout">Logout</a>
                       </div>
                     </div>
                   </div>
@@ -396,11 +404,40 @@
 
 <script>
 
+import axios from "axios";
+import api from "./api";
+
 export default {
   name: 'App',
+  data() {
+    return {
+      accessToken: null
+    }
+  },
+
   mounted() {
     $(document).trigger('changed')
+    this.getAccessToken()
+  },
+
+  updated() {
+    this.getAccessToken()
+  },
+
+  methods: {
+    getAccessToken() {
+      this.accessToken = localStorage.getItem('access_token')
+    },
+    logout() {
+      api.post('/api/auth/logout')
+          .then( res => {
+            localStorage.removeItem('access_token')
+            this.$router.push({ name: 'user.login'})
+          })
+    }
   }
+
+
 }
 </script>
 
