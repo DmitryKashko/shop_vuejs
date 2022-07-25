@@ -404,7 +404,6 @@
 
 <script>
 
-import axios from "axios";
 import api from "./api";
 
 export default {
@@ -420,8 +419,16 @@ export default {
     this.getAccessToken()
   },
 
-  updated() {
+  /*updated() {
     this.getAccessToken()
+  },*/
+  /*created () {
+    this.getAccessToken()
+  },*/
+  watch: {
+    $route() {
+      this.getAccessToken()
+    },
   },
 
   methods: {
